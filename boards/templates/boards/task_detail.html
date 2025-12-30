@@ -1,0 +1,63 @@
+{% extends 'boards/base.html' %}
+{% block content %}
+
+<h2>{{ task.title }}</h2>
+
+<p>{{ task.description }}</p>
+
+<p>
+  <strong>Priority:</strong> {{ task.priority }} |
+  <strong>Due date:</strong> {{ task.due_date|default:"—" }}
+</p>
+
+<!-- 🔹 Subtask Section -->
+<h3>Subtasks</h3>
+<ul class="subtask-list">
+  {% for sub in task.subtasks.all %}
+    <li>
+      {% if sub.is_completed %}
+        ✅ <del>{{ sub.title }}</del>
+      {% else %}
+        ⬜ {{ sub.title }}
+      {% endif %}
+      <a href="{% url 'toggle_subtask' sub.id %}">(toggle)</a>
+    </li>
+  {% empty %}
+    <li>No subtasks yet.</li>
+  {% endfor %}
+</ul>
+
+<!-- 🔹 Add / Navigate -->
+<a class="btn-add" href="{% url 'add_subtask' task.id %}">+ Add Subtask</a>
+<a href="{% url 'board_detail' task.board.id %}">⬅ Back to Board</a>
+
+<!-- 🔹 Progress Section (safe version) -->
+{% with total=task.subtasks.count completed=task.subtasks.filter(is_completed=True).count %}
+  {% if total > 0 %}
+    {% widthratio completed total 100 as percent %}
+    <div class="progress-section" style="margin-top:1em;">
+      <small>Progress: {{ completed }}/{{ total }} ({{ percent }}%)</small>
+      <div class="progress-bar-container">
+        <div class="progress-bar" >
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% endblock %}
+
+<h3>Attachments</h3>
+<ul class="attachment-list">
+  {% for file in task.attachments.all %}
+    <li>
+      <a href="{{ file.file.url }}" target="_blank">{{ file.file.name|slice:"10:" }}</a>
+      <span>uploaded by {{ file.uploaded_by }}</span>
+      <a href="{% url 'delete_attachment' file.id %}">🗑 Delete</a>
+    </li>
+  {% empty %}
+    <li>No attachments yet.</li>
+  {% endfor %}
+</ul>
+
+<a class="btn-add" href="{% url 'add_attachment' task.id %}">+ Add Attachment</a>

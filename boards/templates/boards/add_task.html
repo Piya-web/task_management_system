@@ -1,0 +1,37 @@
+{% extends 'boards/base.html' %}
+
+{% block content %}
+<div class="auth-container" style="max-width: 600px; margin: 2rem auto;">
+    <h2>Add New Task to: {{ board.name }}</h2>
+    
+    <form method="post" class="task-form">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            {{ form.as_p }}
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 10px;">
+            <button type="submit" class="btn-add" style="margin-bottom: 0; flex: 1;">Create Task</button>
+            <a href="{% url 'board_detail' board.id %}" class="btn-small" style="background-color: #666; display: flex; align-items: center; justify-content: center; flex: 1;">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Inline tweak for the task form labels and inputs */
+    .task-form p {
+        margin-bottom: 15px;
+    }
+    .task-form input, .task-form textarea, .task-form select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .task-form textarea {
+        height: 100px;
+    }
+</style>
+{% endblock %}

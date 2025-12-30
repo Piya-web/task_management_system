@@ -1,0 +1,127 @@
+{% extends 'boards/base.html' %} {% block content %}
+<div
+  style="
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+  "
+>
+  <h2 style="color: #004aad; margin-bottom: 0.5rem">{{ board.name }}</h2>
+  <div style="display: flex; gap: 10px">
+    {% if user in board.members.all %}
+    <a class="btn-add" href="{% url 'add_task' board.id %}" style="margin: 0"
+      >+ Add Task</a
+    >
+    {% if board.owner == user %}
+    <a
+      class="btn-add"
+      href="{% url 'invite_user' board.id %}"
+      style="background-color: #28a745; margin: 0"
+      >+ Invite Teammate</a
+    >
+    {% endif %} {% endif %}
+  </div>
+</div>
+
+<div
+  class="kanban-board"
+  style="display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem"
+>
+  {% for column in columns %}
+  <div
+    class="kanban-column"
+    data-column-id="{{ column.id }}"
+    ondrop="dropTask(event)"
+    ondragover="allowDrop(event)"
+    style="
+      flex: 1;
+      min-width: 300px;
+      background: #f4f5f7;
+      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid #ddd;
+    "
+  >
+    <h3 style="font-size: 1.1rem; margin-top: 0; color: #333">
+      {{ column.title }}
+    </h3>
+
+    <div
+      class="kanban-tasks"
+      id="column-{{ column.id }}"
+      style="min-height: 400px"
+    >
+      <!-- Logic: Iterating over tasks linked to this specific column -->
+      {% for task in column.tasks.all %}
+      <div
+        class="kanban-task priority-{{ task.priority }} {% if task.is_locked %}locked{% endif %}"
+        draggable="true"
+        data-task-id="{{ task.id }}"
+        ondragstart="dragTask(event)"
+      >
+        <div
+          class="avatars"
+          style="display: flex; gap: 4px; margin-bottom: 8px"
+        >
+          {% for member in task.assigned_to.all %}
+          <div
+            class="avatar"
+            title="{{ member.username }}"
+            style="
+              width: 24px;
+              height: 24px;
+              background: #004aad;
+              color: white;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 0.7rem;
+            "
+          >
+            {{ member.initials }}
+          </div>
+          {% endfor %}
+        </div>
+
+        <strong
+          ><a
+            href="{% url 'task_detail' task.id %}"
+            style="color: #333; text-decoration: none"
+            >{{ task.title }}</a
+          ></strong
+        >
+
+        <div
+          style="
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <span style="font-size: 0.7rem; color: #888"
+            >Due: {{ task.due_date|default:"—" }}</span
+          >
+          <a
+            href="{% url 'edit_task' task.id %}"
+            class="btn-small"
+            style="padding: 2px 8px; font-size: 0.7rem"
+            >Edit</a
+          >
+        </div>
+      </div>
+      {% empty %}
+      <div style="text-align: center; color: #bbb; padding-top: 4rem">
+        <small>No tasks in {{ column.title }}</small>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  const boardId = "{{ board.id }}";
+</script>
+{% endblock %}

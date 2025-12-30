@@ -1,0 +1,16 @@
+{% extends 'boards/base.html' %}
+{% block content %}
+<h2>All Boards</h2>
+
+<a class="btn-add" href="{% url 'create_board' %}">+ Create Board</a>
+<ul class="board-list">
+  {% for board in boards %}
+    <li>
+      <a href="{% url 'board_detail' board.id %}">{{ board.name }}</a>
+      <p>{{ board.description }}</p>
+    </li>
+  {% empty %}
+    <li>No boards yet!</li>
+  {% endfor %}
+</ul>
+{% endblock %}

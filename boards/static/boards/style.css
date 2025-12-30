@@ -1,0 +1,755 @@
+/* ---------- Base Layout ---------- */
+body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background-color: #f9fafc;
+  color: #222;
+  margin: 0;
+}
+
+header {
+  background: #004aad;
+  color: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5em;
+  font-weight: 500;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 1em;
+}
+
+/* ---------- Kanban Board ---------- */
+.kanban-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.kanban-column {
+  flex: 1;
+  min-width: 280px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.kanban-column h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #004aad;
+}
+
+.kanban-tasks {
+  flex: 1;
+}
+
+.kanban-task {
+  background: #e3f2fd;
+  margin-bottom: 0.6em;
+  padding: 0.6em;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+.kanban-task:active {
+  cursor: grabbing;
+}
+
+/* ---------- Boards List ---------- */
+.board-list li {
+  list-style: none;
+  margin: 0.6em 0;
+  background: #fff;
+  padding: 0.6em;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.board-list a {
+  font-weight: 600;
+  color: #004aad;
+  text-decoration: none;
+}
+.board-list a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Forms ---------- */
+form {
+  background: #fff;
+  padding: 1em;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+}
+button {
+  background: #004aad;
+  color: #fff;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background: #005eea;
+}
+
+/* ---------- Notifications ---------- */
+ul {
+  padding-left: 0;
+}
+.notifications li {
+  list-style: none;
+  padding: 0.6em;
+  margin-bottom: 0.4em;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* ---------- Responsive breakpoints ---------- */
+
+/* tablets */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav {
+    margin-top: 0.5em;
+  }
+  .kanban-board {
+    justify-content: center;
+  }
+}
+
+/* mobile phones */
+@media (max-width: 600px) {
+  main {
+    padding: 0.5em;
+  }
+  .kanban-column {
+    width: 100%;
+    min-width: auto;
+  }
+  header h1 {
+    font-size: 1.1rem;
+  }
+  nav a {
+    display: inline-block;
+    margin: 0.3em 0.4em 0.3em 0;
+    font-size: 0.9rem;
+  }
+  .kanban-task {
+    font-size: 0.9rem;
+    padding: 0.5em;
+  }
+}
+/* ---------- Auth Pages (Login / Signup) ---------- */
+.auth-body {
+  background-color: #f6f7fb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-container {
+  background: white;
+  padding: 2em 3em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-container h2 {
+  text-align: center;
+  color: #004aad;
+  margin-bottom: 1em;
+}
+
+.auth-container form input[type="text"],
+.auth-container form input[type="password"] {
+  width: 100%;
+  padding: 0.6em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  font-size: 0.95rem;
+}
+
+.auth-container button {
+  width: 100%;
+  background-color: #004aad;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6em;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.auth-container button:hover {
+  background-color: #005eea;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 0.9rem;
+}
+
+.auth-links a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  background-color: #ffe3e3;
+  color: #900;
+  padding: 0.5em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  text-align: center;
+}
+/* ----------------------------------------------------
+   Auth Pages (shared by login & signup)
+---------------------------------------------------- */
+.auth-body {
+  background-color: #f6f7fb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-container {
+  background: #ffffff;
+  padding: 2em 3em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-container h2 {
+  text-align: center;
+  color: #004aad;
+  margin-bottom: 1em;
+}
+
+.auth-container form input[type="text"],
+.auth-container form input[type="password"],
+.auth-container form input[type="email"] {
+  width: 100%;
+  padding: 0.6em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  font-size: 0.95rem;
+}
+
+.auth-container button {
+  width: 100%;
+  background-color: #004aad;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6em;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.auth-container button:hover {
+  background-color: #005eea;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 0.9rem;
+}
+
+.auth-links a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  background-color: #ffe3e3;
+  color: #900;
+  padding: 0.5em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  text-align: center;
+}
+.btn-add {
+  display: inline-block;
+  margin-bottom: 1em;
+  background-color: #004aad;
+  color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.btn-add:hover {
+  background-color: #005eea;
+}
+
+.btn-small {
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-top: 0.3em;
+  margin-right: 0.3em;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn-small.delete {
+  background-color: #d9534f;
+}
+.btn-small.delete:hover {
+  background-color: #c9302c;
+}
+.btn-small {
+  background-color: #004aad;
+}
+.btn-small:hover {
+  background-color: #005eea;
+}
+/* ---------- Sidebar Layout ---------- */
+.layout {
+  display: flex;
+  min-height: 90vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background: #f1f3f8;
+  border-right: 1px solid #ccc;
+  padding: 1em;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  color: #004aad;
+  font-size: 1.1rem;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0.5em;
+}
+
+.sidebar li {
+  margin: 0.3em 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #004aad;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* Main content adjusts next to sidebar */
+.main-content {
+  flex: 1;
+  padding: 1.5em;
+}
+
+/* Responsive behaviour */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+}
+/* ---------- User Avatars ---------- */
+.avatars {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5em;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #004aad;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  text-transform: uppercase;
+}
+
+.avatar:hover {
+  background-color: #005eea;
+}
+
+.avatar.empty {
+  background-color: #ccc;
+  color: #666;
+}
+
+.attachment-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1em;
+}
+
+.attachment-list li {
+  margin: 0.3em 0;
+}
+
+.attachment-list a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.attachment-list a:hover {
+  text-decoration: underline;
+}
+/* ============ Task Lock Highlight ============ */
+.kanban-task.locked {
+  background-color: #ffcdd2; /* light red */
+  cursor: not-allowed;
+  opacity: 0.6;
+  border: 1px solid #b71c1c;
+}
+
+/* ================================
+   Base Page Layout
+================================== */
+body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background-color: #f6f7fb;
+  color: #222;
+  margin: 0;
+}
+
+header {
+  background: #004aad;
+  color: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5em;
+  font-weight: 500;
+}
+
+/* Logout Button Styling */
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 0.5em;
+  text-decoration: none;
+}
+
+.logout-btn:hover,
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   Layout + Sidebar
+================================== */
+.layout {
+  display: flex;
+  min-height: 90vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #f1f3f8;
+  border-right: 1px solid #ccc;
+  padding: 1em;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  color: #004aad;
+  font-size: 1.1rem;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0.5em;
+}
+
+.sidebar li {
+  margin: 0.3em 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #004aad;
+  font-weight: 500;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5em;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+/* ================================
+   Kanban & Tasks
+================================== */
+.kanban-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.kanban-column {
+  flex: 1;
+  min-width: 280px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+.kanban-task {
+  background: #e3f2fd;
+  margin-bottom: 0.6em;
+  padding: 0.6em;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+
+.kanban-task.locked {
+  background-color: #ffcdd2;
+  cursor: not-allowed;
+  opacity: 0.7;
+  border: 1px solid #b71c1c;
+}
+
+/* Progress & Avatars */
+.progress-bar-container {
+  background-color: #ddd;
+  border-radius: 4px;
+  height: 8px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.progress-bar {
+  background-color: #004aad;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.avatars {
+  display: flex;
+  margin-bottom: 0.5em;
+}
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #004aad;
+  color: white;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3px;
+}
+
+/* Buttons */
+.btn-add {
+  display: inline-block;
+  background: #004aad;
+  color: white;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.btn-small {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: #004aad;
+  margin-right: 5px;
+}
+/* --- Flash Messages / Alerts --- */
+.alert {
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Success colors */
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Error/Danger colors */
+.alert-error,
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* --- Add to the very bottom of your existing CSS --- */
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: inherit;
+}
+.logout-btn:hover {
+  text-decoration: underline;
+}
+.btn-small {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: white;
+  background: #004aad;
+}
+.btn-small.delete {
+  background: #dc3545;
+}
+.alert {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+}
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+}
+.no-tasks {
+  color: #999;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* --- Priority Border Styling --- */
+.kanban-task {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 5px solid #ccc; /* Default color */
+    transition: transform 0.2s;
+}
+
+.kanban-task.priority-high {
+    border-left-color: #dc3545; /* Red */
+}
+
+.kanban-task.priority-medium {
+    border-left-color: #ffc107; /* Yellow/Amber */
+}
+
+.kanban-task.priority-low {
+    border-left-color: #28a745; /* Green */
+}
+
+/* Style for when task is locked */
+.kanban-task.locked {
+    background-color: #fff5f5;
+    border: 1px solid #dc3545;
+}

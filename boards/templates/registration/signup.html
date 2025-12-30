@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Task Management System</title>
+  <link rel="stylesheet" href="{% static 'boards/style.css' %}">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <h2>Create an account</h2>
+
+    {% if form.errors %}
+      <div class="error">Please fix the errors below.</div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p class="auth-links">
+      Already have an account? <a href="{% url 'login' %}">Log in</a>
+    </p>
+  </div>
+</body>
+</html>

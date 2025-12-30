@@ -1,0 +1,10 @@
+{% extends 'boards/base.html' %}
+{% block content %}
+<h2>Add Subtask to Task: {{ task.title }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Subtask</button>
+  <a href="{% url 'task_detail' task.id %}">Cancel</a>
+</form>
+{% endblock %}

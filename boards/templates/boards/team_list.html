@@ -1,0 +1,32 @@
+{% extends 'boards/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 2rem auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Your Teams</h2>
+        <a href="{% url 'create_team' %}" class="btn-add" style="margin-bottom: 0;">+ Create Team</a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <ul class="board-list" style="padding: 0;">
+      {% for team in teams %}
+        <li style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: white; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); list-style: none;">
+          <div>
+            <strong style="font-size: 1.2rem; color: #004aad;">{{ team.name }}</strong>
+            <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">Owner: {{ team.owner.username }}</p>
+          </div>
+          <a href="{% url 'board_list' %}?team={{ team.id }}" class="btn-small" style="padding: 10px 20px;">View Team Boards</a>
+        </li>
+      {% empty %}
+        <li style="text-align: center; color: #999; padding: 2rem; list-style: none; background: white; border-radius: 8px;">
+            You are not part of any teams yet. Create one to start collaborating!
+        </li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock %}

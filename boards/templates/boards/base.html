@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Management System</title>
+  <link rel="stylesheet" href="{% static 'boards/style.css' %}">
+</head>
+<body data-userid="{{ request.user.id }}">
+  <header>
+    <h1>🗂️ Task Management System</h1>
+    <nav>
+      {% if user.is_authenticated %}
+        <a href="{% url 'board_list' %}">Boards</a> |
+        <a href="{% url 'team_list' %}">Teams</a> | 
+        <a href="{% url 'notifications' %}">Notifications <span id="notif-count"></span></a> |
+        <form action="{% url 'logout' %}" method="post" style="display:inline; margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      {% if user.is_authenticated %}
+        <h3>Your Teams</h3>
+        <ul>
+          {% for team in sidebar_teams %}
+            <li>
+              <strong>{{ team.name }}</strong>
+              <ul>
+                {% for board in team.boards.all %}
+                  {% if user in board.members.all %}
+                    <li><a href="{% url 'board_detail' board.id %}">{{ board.name }}</a></li>
+                  {% endif %}
+                {% empty %}
+                  <li><em>No boards</em></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% empty %}
+            <li><em>No teams yet</em></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </aside>
+
+    <main class="main-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <script>const boardId = "{{ board.id|default:'' }}";</script>
+  <script src="{% static 'boards/kanban.js' %}"></script>
+  <script src="{% static 'boards/dragdrop.js' %}"></script>
+</body>
+</html>

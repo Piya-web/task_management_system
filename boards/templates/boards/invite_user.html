@@ -1,0 +1,49 @@
+{% extends 'boards/base.html' %} {% block content %}
+<div class="auth-container" style="max-width: 500px; margin: 2rem auto">
+  <h2>Invite Teammate to: {{ board.name }}</h2>
+
+  <p style="color: #666; margin-bottom: 1.5rem">
+    Enter the <strong>username</strong> or <strong>email address</strong> of the
+    user you want to add to this board.
+  </p>
+
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %} {% endif %}
+
+  <form method="post" class="task-form">
+    {% csrf_token %}
+
+    <div class="form-section">{{ form.as_p }}</div>
+
+    <div style="margin-top: 1.5rem; display: flex; gap: 10px">
+      <button type="submit" class="btn-add" style="margin-bottom: 0; flex: 1">
+        Send Invite
+      </button>
+      <a
+        href="{% url 'board_detail' board.id %}"
+        class="btn-small"
+        style="
+          background-color: #666;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 1;
+          color: white;
+        "
+        >Cancel</a
+      >
+    </div>
+  </form>
+</div>
+
+<style>
+  .task-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+</style>
+{% endblock %}
